@@ -167,7 +167,6 @@ document.getElementById('ejercicio7').addEventListener('click', () => {
 })
 
 ///////////////////////////Ejercicio 8
-const numerito
 
 const algorithmics8 = n => {
     for(let i = n.length; i > 0; i--){
