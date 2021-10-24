@@ -1,3 +1,80 @@
+///////////////////////////Ejercicio 1
+const algorithmics1 = long => {
+    let result = "";
+    for(let i = 0; i<long; i++) result += '+';
+    return result;
+  }
+
+//   console.log(algorithmics1(10));
+
+///////////////////////////Ejercicio 2
+const algorithmics2 = (long, car1, car2) => {
+    let result = "";
+    for(let i = 0; i<long; i++){
+      i%2 === 1 ? result += car1 : result += car2;
+    }
+    return result
+    
+  }
+  
+//   console.log(algorithmics2(11,'$','&'));
+
+///////////////////////////Ejercicio 3
+const algorithmics3 = (height, width) => {
+    let result = "";
+    for(let i = 0; i<height; i++){
+      for(let j = 0; j<width; j++) {result += '*'} 
+      if(i != height-1) result += '\n'
+    }
+    return result
+  }
+  
+//   console.log(algorithmics3(8,7));
+
+///////////////////////////Ejercicio 4
+const algorithmics4 = height => {
+    let result = "";
+    for(let i = 0; i<height; i++){
+      for(let j = 0; j<=i; j++) {result += '*'} 
+      if(i != height-1) result += '\n'
+    }
+    return result
+  }
+  
+//   console.log(algorithmics4(5));
+
+///////////////////////////Ejercicio 5
+const algorithmics5 = size => {
+    const hex = size + (size-1)
+    let secondHalf = size-1
+    let until = 0
+    let result = "";
+  
+    for(let i = 0; i < hex; i++) { 
+      let blank = size - 1;
+  
+      if(i < size){
+        blank -= i
+        until = hex + i
+      }else{
+        blank -= secondHalf
+        until-- 
+      }
+      
+      for(let j = 0; j<until; j++){
+        if(blank>0) {  result += " "  }
+        else {  result += "+"  }
+        if(blank != 0) blank--
+      }
+  
+      if(i>=size-1) secondHalf--
+      if(i != hex - 1) result += '\n'
+    }
+    return result
+  }
+
+//   console.log(algorithmics5(20));
+
 ///////////////////////////Ejercicio 6
 const createLocalStorage = () => {
     if(!localStorage.getItem('users')) {
@@ -89,78 +166,83 @@ document.getElementById('ejercicio7').addEventListener('click', () => {
     algorithmics7(number)
 })
 
-///////////////////////////Ejercicio 10
-const createCaja = () => {
-    if(!localStorage.getItem('caja')) {
-        localStorage.setItem('caja', JSON.stringify({
-            totalAmount: 234.27,
-            bills: {
-                '500€': 0,
-                '200€': 0,
-                '100€': 0,
-                '50€': 1,
-                '20€': 4,
-                '10€': 8,
-                '5€': 2
-            },
-            coins: {
-                '2€': 5,
-                '1€': 4,
-                '0.50€': 0,
-                '0.20€': 0,
-                '0.10€': 1,
-                '0.05€': 2,
-                '0.02€': 3,
-                '0.01€': 1
+///////////////////////////Ejercicio 8
+const numerito
+
+const algorithmics8 = n => {
+    for(let i = n.length; i > 0; i--){
+        for(let j = 0; j < i; j++){
+            if((n[j]-n[j+1]) > 0) {
+                let temp = n[j]
+                n[j] = n[j+1]
+                n[j+1] = temp
             }
-        }))
+        }
     }
+    console.log(n)
 }
 
-createCaja()
+// algorithmics8([85, 164, 2, 75, 315, 45, 96, 99, 61, 32, 165, 84, 651, 948, 13, 151, 25, 916, 74, 358])
 
-const caja = (article, amount) => {
-    const cr = JSON.parse(localStorage.getItem('caja'))
-    const totalAmout = amount.reduce((acc, cur) => acc + cur)
-    let cambio = (totalAmout - article).toFixed(2)
-    const cambioFijo = cambio
-    
-    for (let coin of Object.keys(cr.coins]) {
-        console.log(coin)
-        console.log(cr.coins[coin]);
+///////////////////////////Ejercicio 10 incompleto
+
+const cr = {
+    totalAmount: 234.27,
+    bills: {
+        '500€': 0,
+        '200€': 0,
+        '100€': 0,
+        '50€': 1,
+        '20€': 4,
+        '10€': 8,
+        '5€': 2
+    },
+    coins: {
+        '2€': 5,
+        '1€': 4,
+        '0.50€': 0,
+        '0.20€': 0,
+        '0.10€': 1,
+        '0.05€': 2,
+        '0.02€': 3,
+        '0.01€': 1
     }
-
-//     if(cambio != 0){
-//         if (cambio > 0) {
-//             while(cambio > 0){
-//                 if(cambio >= 5){
-//                     for (let bill of Object.keys(cr.bills)) {
-//                         if (cr.bills[bill] != 0) {
-//                             const money = parseInt(bill.replace('$',''))
-//                             if(money <= cambio) { 
-//                                 cambio -= money;
-//                                 cr.bills[bill]--;
-//                             }
-//                         }
-//                     }
-//                 }else{
-//                     for (let coin of Object.keys(cr.coins)) {
-//                         if (cr.coins[coin] != 0) {
-//                             const money = parseInt(coin.replace('$',''))
-//                             if(money <= cambio) { 
-//                                 cambio -= money;
-//                                 cr.coins[coin]--;
-//                             }
-//                         }
-//                     }
-//                 }
-//             }
-//             return `tu cambio es de ${cambioFijo}`
-//         }
-//         else return 'cantidad insuficiente, cancelado el pago'
-        
-//     }
-//     else return 'pago exacto, sin cambio'
-}
-
-caja(39.99, [20, 10, 10])
+  }
+  
+  const caja = (article, amount) => {
+      if(amount <= cr.totalAmount){
+        const totalAmout = amount.reduce((acc, cur) => acc + cur)
+        let cambio = (totalAmout - article).toFixed(2)
+        const cambioFijo = cambio
+        if(cambio != 0){
+            if (cambio > 0) {
+                while(cambio > 0){
+                    if(cambio >= 5){
+                        for(let bill of Object.keys(cr.bills)) {
+                            if (cr.bills[bill] != 0) {
+                                const money = parseFloat(bill.replace('$',''))
+                                if(money <= cambio) { 
+                                    cambio = (cambio - money).toFixed(2);
+                                    cr.bills[bill]--;
+                                }
+                            }
+                        }
+                    }else{
+                        for (let coin of Object.keys(cr.coins)) {
+                            if (cr.coins[coin] != 0) {
+                              const money = parseFloat(coin.replace('$','')
+                              )
+                              if(money <= cambio) {
+                                  cambio = (cambio - money).toFixed(2);
+                                  cr.coins[coin]--;
+                              }
+                            }
+                        }
+                    }
+                } return `tu cambio es de ${cambioFijo}`
+            } else return 'cantidad insuficiente, cancelado el pago'
+        } else return 'pago exacto, sin cambio'
+      }else return 'no tenemos suficiente cambio, lo sentimos :('
+  }
+  
+//   caja(39.99, [200])
